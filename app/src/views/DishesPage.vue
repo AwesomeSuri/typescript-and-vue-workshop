@@ -26,7 +26,7 @@ const dishList = ref<Dish[]>([
   },
 ])
 const showNewForm = ref(false)
-const elSearchInput = ref<HTMLInputElement | null>(null)
+const elFilterInput = ref<HTMLInputElement | null>(null)
 
 // Computed
 const filteredDishList = computed((): Dish[] => {
@@ -55,6 +55,9 @@ const deleteDish = (payload: Dish) => {
 const hideForm = () => {
   showNewForm.value = false
 }
+const changeFilter = (e: KeyboardEvent) => {
+  filterText.value = (e.target as HTMLInputElement).value
+}
 
 // Hooks
 onMounted(() => {
@@ -63,7 +66,7 @@ onMounted(() => {
     showNewForm.value = true
   }
 
-  elSearchInput.value?.focus()
+  elFilterInput.value?.focus()
 })
 </script>
 
@@ -93,7 +96,14 @@ onMounted(() => {
             <div class="level-item is-hidden-tablet-only">
               <div class="field has-addons">
                 <p class="control">
-                  <input class="input" type="text" placeholder="Dish name" v-model="filterText" ref="elSearchInput" />
+                  <input
+                    class="input"
+                    type="text"
+                    placeholder="Dish name"
+                    :value="filterText"
+                    @keyup.enter="changeFilter"
+                    ref="elFilterInput"
+                  />
                 </p>
                 <p class="control">
                   <button class="button">Search</button>
