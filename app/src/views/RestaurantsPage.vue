@@ -32,6 +32,7 @@ const restaurantList = ref<Restaurant[]>([
   },
 ])
 const showNewForm = ref(false)
+const elSearchInput = ref<HTMLInputElement | null>(null)
 
 // Computed
 const filteredRestaurantList = computed((): Restaurant[] => {
@@ -64,10 +65,11 @@ const hideForm = () => {
 // Hooks
 onMounted(() => {
   const route = useRoute()
-
   if (route.query.new) {
     showNewForm.value = true
   }
+
+  elSearchInput.value?.focus()
 })
 </script>
 
@@ -97,7 +99,13 @@ onMounted(() => {
             <div class="level-item is-hidden-tablet-only">
               <div class="field has-addons">
                 <p class="control">
-                  <input class="input" type="text" placeholder="Restaurant name" v-model="filterText" />
+                  <input
+                    class="input"
+                    type="text"
+                    placeholder="Restaurant name"
+                    v-model="filterText"
+                    ref="elSearchInput"
+                  />
                 </p>
                 <p class="control">
                   <button class="button">Search</button>

@@ -26,6 +26,7 @@ const dishList = ref<Dish[]>([
   },
 ])
 const showNewForm = ref(false)
+const elSearchInput = ref<HTMLInputElement | null>(null)
 
 // Computed
 const filteredDishList = computed((): Dish[] => {
@@ -61,6 +62,8 @@ onMounted(() => {
   if (route.query.new) {
     showNewForm.value = true
   }
+
+  elSearchInput.value?.focus()
 })
 </script>
 
@@ -90,7 +93,7 @@ onMounted(() => {
             <div class="level-item is-hidden-tablet-only">
               <div class="field has-addons">
                 <p class="control">
-                  <input class="input" type="text" placeholder="Dish name" v-model="filterText" />
+                  <input class="input" type="text" placeholder="Dish name" v-model="filterText" ref="elSearchInput" />
                 </p>
                 <p class="control">
                   <button class="button">Search</button>
