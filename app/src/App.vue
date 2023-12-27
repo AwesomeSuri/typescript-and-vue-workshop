@@ -8,7 +8,7 @@ export default {
     TheFooter,
   },
   data: () => ({
-    tagline: 123,
+    tagline: '123',
   }),
 }
 </script>
